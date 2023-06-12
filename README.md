@@ -29,19 +29,11 @@ The initial pattern constitutes the seed of the system. The first generation is 
 
 ## Running the Project 🏃
 
-To run the project, you will need to have .NET 5.0 or later installed. You can then use the `dotnet run` command from the root directory of the project. To run the tests, use the `dotnet test` command.
+To run the project, you will need to have .NET 7.0 or later installed. You can then use the `dotnet run` command from the root directory of the project. To run the tests, use the `dotnet test` command.
 
 ## API Usage 🌐
 
 The API has a single endpoint, `/gameoflife/nextgeneration`, which accepts a POST request with a JSON body representing the initial state of the Game of Life grid. The grid should be a 2D array of booleans, where `true` represents a live cell and `false` represents a dead cell. The response from the API is a JSON body representing the next generation of the Game of Life grid, following the rules described above.
-
-## Code Snippets 📝
-
-Here are some key snippets from the codebase:
-
-- [Game of Life Service](#game-of-life-service)
-- [Integration Tests](#integration-tests)
-- [Unit Tests](#unit-tests)
 
 ## Game of Life Algorithm Explained 🧠
 
