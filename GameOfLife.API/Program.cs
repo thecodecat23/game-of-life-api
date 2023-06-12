@@ -12,7 +12,7 @@ public class Program
 
         var app = builder.Build();
 
-        app.MapPost("/gameoflife/nextgeneration", (GameOfLifeService gameOfLifeService, bool[,] initialGrid) =>
+        app.MapPost("/gameoflife/nextgeneration", (GameOfLifeService gameOfLifeService, bool[][] initialGrid) =>
         {
             try
             {

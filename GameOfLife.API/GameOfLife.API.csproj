@@ -15,4 +15,8 @@
     <ProjectReference Include="..\GameOfLife.Services\GameOfLife.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Feature\NextGeneration\" />
+  </ItemGroup>
+
 </Project>
