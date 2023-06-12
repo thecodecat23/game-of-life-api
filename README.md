@@ -27,14 +27,6 @@ The Game of Life is played on an infinite two-dimensional grid of square cells, 
 
 The initial pattern constitutes the seed of the system. The first generation is created by applying the above rules simultaneously to every cell in the seed; births and deaths occur simultaneously, and the discrete moment at which this happens is sometimes called a tick. Each generation is a pure function of the preceding one.
 
-## Running the Project 🏃
-
-To run the project, you will need to have .NET 7.0 or later installed. You can then use the `dotnet run` command from the root directory of the project. To run the tests, use the `dotnet test` command.
-
-## API Usage 🌐
-
-The API has a single endpoint, `/gameoflife/nextgeneration`, which accepts a POST request with a JSON body representing the initial state of the Game of Life grid. The grid should be a 2D array of booleans, where `true` represents a live cell and `false` represents a dead cell. The response from the API is a JSON body representing the next generation of the Game of Life grid, following the rules described above.
-
 ## Game of Life Algorithm Explained 🧠
 
 The `GameOfLifeService` class contains the core logic for calculating the next generation of the Game of Life grid. Here's a step-by-step explanation of how the algorithm works:
@@ -72,7 +64,9 @@ for (int i = 0; i < initialGrid.Length; i++)
 
 ### 3. Count Live Neighbours 👫
 
-The `CountLiveNeighbours` method counts the number of live neighbours for a given cell. It does this by checking each of the cell's eight surrounding cells and incrementing a count if the cell is alive. 
+In the Game of Life, each cell in the grid has up to eight neighbours: the cells that are directly above, below, to the left, to the right, and the four cells that are diagonally adjacent. 
+
+The `CountLiveNeighbours` method in the `GameOfLifeService` class is responsible for counting how many of a given cell's neighbours are alive. Here's the code for this method:
 
 ```csharp
 private int CountLiveNeighbours(bool[][] grid, int x, int y)
@@ -91,6 +85,20 @@ private int CountLiveNeighbours(bool[][] grid, int x, int y)
     return count;
 }
 ```
+
+This method takes three parameters: the current grid and the coordinates `(x, y)` of the cell for which we want to count live neighbours.
+
+The method initializes a `count` variable to 0. This variable will keep track of the number of live neighbours.
+
+The method then enters a nested loop that iterates over the cells in the grid that are in the vicinity of the cell at `(x, y)`. The outer loop iterates over the rows (i.e., the `x` coordinate), and the inner loop iterates over the columns (i.e., the `y` coordinate). 
+
+The range of the loops is determined by `Math.Max(0, x - 1)` and `Math.Min(grid.Length - 1, x + 1)` for the `x` coordinate, and `Math.Max(0, y - 1)` and `Math.Min(grid[i].Length - 1, y + 1)` for the `y` coordinate. This ensures that the loops only iterate over the cells that are neighbours of the cell at `(x, y)`, including the cell itself. It also ensures that the loops do not attempt to access cells that are outside the bounds of the grid, which would cause an error.
+
+Inside the inner loop, the method checks if the current cell `(i, j)` is not the cell `(x, y)` itself. If it's not, and the cell is alive (i.e., `grid[i][j]` is `true`), the method increments the `count` by 1.
+
+Finally, after the loops have finished, the method returns the `count`, which is the number of live neighbours of the cell at `(x, y)`.
+
+This method effectively counts the number of live neighbours for a given cell, taking into account the boundaries of the grid and ignoring the state of the cell itself.
 
 ### 4. Apply the Rules of the Game of Life 🎲
 
@@ -123,6 +131,14 @@ return nextGeneration;
 ```
 
 And that's it! This algorithm effectively calculates the next generation of the Game of Life grid based on the rules of the game. 🚀
+
+## Running the Project 🏃
+
+To run the project, you will need to have .NET 7.0 or later installed. You can then use the `dotnet run` command from the root directory of the project. To run the tests, use the `dotnet test` command.
+
+## API Usage 🌐
+
+The API has a single endpoint, `/gameoflife/nextgeneration`, which accepts a POST request with a JSON body representing the initial state of the Game of Life grid. The grid should be a 2D array of booleans, where `true` represents a live cell and `false` represents a dead cell. The response from the API is a JSON body representing the next generation of the Game of Life grid, following the rules described above.
 
 
 
