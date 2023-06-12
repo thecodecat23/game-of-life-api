@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameOfLife.Services.Features.GenerateNextGrid;
+﻿namespace GameOfLife.Services.Features.GenerateNextGrid;
 
 public class GameOfLifeService
 {
+    public bool[,] CalculateNextGeneration(bool[,] initialGrid)
+    {
+        throw new NotImplementedException();
+    }
 }
