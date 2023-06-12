@@ -41,7 +41,7 @@ public class GameOfLifeServiceTests
     public void LiveCell_WithTwoOrThreeLiveNeighbours_Lives()
     {
         // Arrange
-        var initialGrid = new bool[][] {new[] { true, true }, new[] { true, false } };
+        var initialGrid = new bool[][] { new[] { true, true }, new[] { true, false } };
 
         // Act
         var nextGeneration = _gameOfLifeService.CalculateNextGeneration(initialGrid);
