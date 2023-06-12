@@ -62,4 +62,32 @@ public class GameOfLifeServiceTests
         // Assert
         Assert.True(nextGeneration[1, 1]);
     }
+
+    // Edge Cases
+
+    [Fact]
+    public void LiveCell_OnGridEdgeWithFewerThanTwoLiveNeighbours_Dies()
+    {
+        // Arrange
+        var initialGrid = new[,] { { true, false }, { false, false } };
+
+        // Act
+        var nextGeneration = _gameOfLifeService.CalculateNextGeneration(initialGrid);
+
+        // Assert
+        Assert.False(nextGeneration[0, 0]);
+    }
+
+    [Fact]
+    public void DeadCell_OnGridEdgeWithExactlyThreeLiveNeighbours_BecomesAlive()
+    {
+        // Arrange
+        var initialGrid = new[,] { { true, true }, { true, false } };
+
+        // Act
+        var nextGeneration = _gameOfLifeService.CalculateNextGeneration(initialGrid);
+
+        // Assert
+        Assert.True(nextGeneration[1, 1]);
+    }
 }
