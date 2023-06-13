@@ -16,6 +16,45 @@ This project was developed using Test-Driven Development (TDD). For each feature
 
 This approach ensures that all code is covered by tests, and allows for safe refactoring. It also encourages small, incremental updates, which are easier to understand and debug than large changes.
 
+## Embracing Minimal APIs in ASP.NET Core 🚀
+
+The Game of Life API project leverages the power of Minimal APIs introduced in ASP.NET Core 6.0. Minimal APIs provide a lean and straightforward way to create HTTP APIs with minimal setup and coding. They are perfect for small applications, microservices, or rapid prototyping, allowing developers to focus on the core functionality of their services.
+
+Here's the main entry point of the application:
+
+```csharp
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddScoped<GameOfLifeService>();
+
+        var app = builder.Build();
+
+        app.MapPost("/gameoflife/nextgeneration", (GameOfLifeService gameOfLifeService, bool[][] initialGrid) =>
+        {
+            try
+            {
+                var nextGeneration = gameOfLifeService.CalculateNextGeneration(initialGrid);
+                return Results.Ok(nextGeneration);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex.Message);
+            }
+        });
+
+        app.Run();
+    }
+}
+```
+
+In this code, we define a single HTTP POST endpoint `/gameoflife/nextgeneration` that calculates the next generation of a Game of Life grid. The endpoint handler is a lambda function that takes a `GameOfLifeService` instance and a 2D boolean array representing the initial grid. The `GameOfLifeService` is automatically injected by the ASP.NET Core dependency injection system.
+
+The endpoint handler uses the `GameOfLifeService` to calculate the next generation of the grid and returns it in the response. If an exception occurs, it returns a 400 Bad Request response with the exception message.
+
 ## Game of Life Algorithm 🧠
 
 The Game of Life is played on an infinite two-dimensional grid of square cells, each of which is in one of two possible states, live or dead. Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions occur:
